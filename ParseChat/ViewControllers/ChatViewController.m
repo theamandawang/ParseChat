@@ -11,7 +11,7 @@
 @interface ChatViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *queryResults;
+@property (strong, nonatomic) NSArray *queryResults;
 @end
 
 @implementation ChatViewController
@@ -21,20 +21,26 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.queryResults = [[NSMutableArray alloc] init];
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
     [self setQuery];
     [self.tableView reloadData];
     // Do any additional setup after loading the view.
 }
 -(void)setQuery {
-    PFQuery *query = [PFQuery queryWithClassName:@"Message_FBU2022"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Message_FBU2021"];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"user"];
+//    [query includeKey:@"text"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            for (NSDictionary *i in posts){
-                NSLog(@"%@", i[@"text"]);
-                [self.queryResults addObject:i[@"text"]];
-            }
+            self.queryResults = posts;
+//            for (PFObject *i in posts){
+//                if(i[@"user"]){
+//                    NSLog(@"user exists");
+//                }
+//                [self.queryResults addObject:i];
+//            }
+            [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -56,8 +62,9 @@
         //do nothing
     }
     else{
-        PFObject *chatMessage = [PFObject objectWithClassName:@"Message_FBU2022"];
-        chatMessage[@"text"] = self.messageTextField.text;
+        PFObject *chatMessage = [PFObject objectWithClassName:@"Message_FBU2021"];
+        [chatMessage setObject:self.messageTextField forKey:@"text"];
+        [chatMessage setObject:PFUser.currentUser forKey:@"user"];
         [chatMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
                 if (succeeded) {
                     NSLog(@"The message was saved!");
@@ -72,12 +79,14 @@
    // Add code to be run periodically
     NSLog(@"every second");
     [self setQuery];
-    [self.tableView reloadData];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ChatTableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"ChatCell"];
-    cell.chatLabel.text = self.queryResults[indexPath.row];
+    cell.chatLabel.text = self.queryResults[indexPath.row][@"text"];
+//    cell.userChatLabel.text = self.queryResults[indexPath.row][@"user"];
+    PFUser * res = self.queryResults[indexPath.row][@"user"];
+    cell.userChatLabel.text = res ? res.username : @"🤖";
     return cell;
 }
 

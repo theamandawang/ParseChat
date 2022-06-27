@@ -85,12 +85,12 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-513" y="60"/>
+            <point key="canvasLocation" x="-545" y="67"/>
         </scene>
-        <!--Chat-->
+        <!--ChatViewController-->
         <scene sceneID="BE7-zT-xrd">
             <objects>
-                <viewController id="slD-7b-n4V" customClass="ChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" title="ChatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="slD-7b-n4V" customClass="ChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CDj-WF-Cbf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -123,21 +123,31 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUP-sE-cJ5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="234"/>
+                                                    <rect key="frame" x="10" y="61.5" width="394" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk5-r5-rgj">
+                                                    <rect key="frame" x="10" y="21" width="394" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="sUP-sE-cJ5" secondAttribute="trailing" id="2nv-1f-fBS"/>
-                                                <constraint firstItem="sUP-sE-cJ5" firstAttribute="leading" secondItem="Bo7-L0-5as" secondAttribute="leading" id="ApN-i3-IaD"/>
-                                                <constraint firstItem="sUP-sE-cJ5" firstAttribute="top" secondItem="Bo7-L0-5as" secondAttribute="top" id="JZS-uX-T9P"/>
-                                                <constraint firstAttribute="bottom" secondItem="sUP-sE-cJ5" secondAttribute="bottom" id="nC6-X2-Y7M"/>
+                                                <constraint firstAttribute="trailing" secondItem="sUP-sE-cJ5" secondAttribute="trailing" constant="10" id="2nv-1f-fBS"/>
+                                                <constraint firstItem="nk5-r5-rgj" firstAttribute="leading" secondItem="Bo7-L0-5as" secondAttribute="leading" constant="10" id="4bx-61-JeW"/>
+                                                <constraint firstItem="nk5-r5-rgj" firstAttribute="top" secondItem="Bo7-L0-5as" secondAttribute="topMargin" constant="10" id="7hU-ie-Vdh"/>
+                                                <constraint firstItem="sUP-sE-cJ5" firstAttribute="leading" secondItem="Bo7-L0-5as" secondAttribute="leading" constant="10" id="ApN-i3-IaD"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sUP-sE-cJ5" secondAttribute="bottom" constant="10" id="Cuq-L5-E97"/>
+                                                <constraint firstAttribute="trailing" secondItem="nk5-r5-rgj" secondAttribute="trailing" constant="10" id="F9X-u2-wWZ"/>
+                                                <constraint firstItem="sUP-sE-cJ5" firstAttribute="top" secondItem="nk5-r5-rgj" secondAttribute="bottom" constant="20" id="abe-xn-3d2"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="chatLabel" destination="sUP-sE-cJ5" id="Koz-cf-JGv"/>
+                                            <outlet property="userChatLabel" destination="nk5-r5-rgj" id="gnv-Ru-DyQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

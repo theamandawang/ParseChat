@@ -21,11 +21,6 @@
         configuration.server = @"https://parseapi.back4app.com/";
       }];
     [Parse initializeWithConfiguration:configuration];
-//    if (PFUser.currentUser) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//
-//        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"AuthenticatedViewController"];
-//    }
     return YES;
 }
 
